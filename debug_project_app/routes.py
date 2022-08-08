@@ -54,7 +54,7 @@ def posts():
 
         db.session.commit()
         return redirect(url_for('posts'))
-    return render_template('posts.html', post = post)
+    return render_template('posts.html', post=post)
 
 @app.route('/posts/<int:post_id>')
 @login_required
