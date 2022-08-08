@@ -42,7 +42,7 @@ def register():
 @app.route('/posts', methods=['GET','POST'])
 @login_required
 def posts():
-    post = PostForm
+    post = PostForm()
     if request.method == 'POST' and post.validate():
         title = post.title.data
         content = post.content.data
