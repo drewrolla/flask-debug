@@ -1,4 +1,4 @@
-from debug_project_app import app, Message, mail
+from debug_project_app import app, Message, mail, db
 from flask import render_template, request, redirect, url_for
 
 # Import for Forms
@@ -8,19 +8,20 @@ from debug_project_app.forms import UserInfoForm, PostForm, LoginForm
 from debug_project_app.models import User, Post, check_password_hash
 
 # Import for Flask Login - login_required, login_user,current_user, logout_user
-from flask_login import login_required,login_user, current_user,logout_user
+from flask_login import login_required, login_user, current_user, logout_user
+
 
 # Home Route
 @app.route('/')
 def home():
     posts = Post.query.all
-    returnrender_template("homes.html", posts = posts)
+    return render_template("home.html", posts = posts)
 
 # Register Route
 @app.route('/register', methods=['GET','POST'])
 def register():
     form = UserInfoForm()
-    if request.method = 'POST' and form.validate():
+    if request.method == 'POST' and form.validate():
         # Get Information
         username = form.username.data
         password = form.password.data
@@ -49,7 +50,7 @@ def posts():
         print('\n',title,content)
         post = Post(title,content,user_id)
 
-        db.session.add(post,posts)
+        db.session.add(post, posts)
 
         db.session.commit()
         return redirect(url_for('posts'))
@@ -72,7 +73,7 @@ def post_update(post_id):
         title = update_form.title.data
         content = update_form.content.data
         user_id = current_user.id
-        print(title,content,user_id)
+        print(title, content, user_id)
 
         # Update will get added to the DB
         post.title = title
@@ -105,7 +106,7 @@ def login():
         else:
             return redirect(url_for('login'))
 
-    return render_template('login.html',form = form)
+    return render_template('login.html', form = form)
 
 
 @app.route('/logout')
