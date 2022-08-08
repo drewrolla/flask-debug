@@ -23,6 +23,7 @@ mail = Mail(app)
 
 # Login Config
 login = LoginManager()
+login.init_app(app)
 login.login_view = 'login' # Specify what page to load for NON-authenticated Users
 
 from debug_project_app import routes, models

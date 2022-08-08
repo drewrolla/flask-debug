@@ -14,8 +14,8 @@ from flask_login import login_required, login_user, current_user, logout_user
 # Home Route
 @app.route('/')
 def home():
-    posts = Post.query.all
-    return render_template("home.html", posts = posts)
+    posts = Post.query.all()
+    return render_template("home.html", posts=posts)
 
 # Register Route
 @app.route('/register', methods=['GET','POST'])
@@ -25,7 +25,7 @@ def register():
         # Get Information
         username = form.username.data
         password = form.password.data
-        email = form.email
+        email = form.email.data
         print("\n",username,password,email)
         # Create an instance of User
         user = User(username,email,password)
